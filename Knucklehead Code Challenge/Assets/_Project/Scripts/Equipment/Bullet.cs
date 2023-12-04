@@ -1,25 +1,34 @@
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Bullet : PoolItem
 {
     [SerializeField] private float _despawnTime;
+    [SerializeField] private float _timeUntilDespawn;
     [SerializeField] private float _bulletSpeed;
-    private Vector3 _launchDirection;
+    private Vector3 _shootDirection;
+
+    private void Start()
+    {
+         _timeUntilDespawn = _despawnTime;
+    }
 
     private void Update()
     {
-        _despawnTime -= Time.deltaTime;
+        _timeUntilDespawn -= Time.deltaTime;
 
-        transform.position += _launchDirection * _bulletSpeed * Time.deltaTime;
+        // Moves bullet in the shoot direction
+        transform.position += _shootDirection * _bulletSpeed * Time.deltaTime;
 
-        if (_despawnTime > 0)
-            return;
-
-        Destroy(gameObject);
+        // Despawns bullet over time
+        if (_timeUntilDespawn <= 0)
+        {
+            _timeUntilDespawn = _despawnTime;
+            ReturnToPool();
+        }
     }
 
-    public void LaunchDirection(Vector3 direction)
+    public void SetLaunchDirection(Vector3 direction)
     {
-        _launchDirection = direction;
+        _shootDirection = direction;
     }
 }

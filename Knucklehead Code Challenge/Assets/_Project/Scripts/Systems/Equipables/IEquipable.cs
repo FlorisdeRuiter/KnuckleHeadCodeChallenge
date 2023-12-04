@@ -3,6 +3,11 @@ public interface IEquipable
     void Equip();
 }
 
+public interface IUnequipable
+{
+    void Unequip();
+}
+
 public interface IEquipableleOnIdle
 {
     public void EquipableOnIdle();

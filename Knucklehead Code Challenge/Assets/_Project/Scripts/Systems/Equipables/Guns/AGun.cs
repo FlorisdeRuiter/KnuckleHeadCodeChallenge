@@ -2,37 +2,43 @@ using UnityEngine;
 
 public abstract class AGun : MonoBehaviour, IEquipable
 {
-    [SerializeField] protected int m_MaxAmmo;
-    public int MaxAmmo => m_MaxAmmo;
-    protected int m_CurrentAmmo;
-    public int CurrentAmmo => m_CurrentAmmo;
+    [Header("Gun Stats")]
+    [SerializeField] protected int m_maxAmmo;
+    public int MaxAmmo => m_maxAmmo;
+    protected int m_currentAmmo;
+    public int CurrentAmmo => m_currentAmmo;
 
-    [SerializeField] protected float m_ShotInterval;
-    protected float m_CurrentShotInterval;
+    [SerializeField] protected float m_shotInterval;
+    protected float m_currentShotInterval;
 
-    [SerializeField] protected GameObject m_bulletPrefab;
     [SerializeField] protected Transform m_firePoint;
+    protected ObjectPool m_bulletPrefabPool;
+
+    private void Start()
+    {
+        m_bulletPrefabPool = FindObjectOfType<ObjectPool>();
+        m_bulletPrefabPool.PoolSize = m_maxAmmo;
+    }
+
+    protected void Update()
+    {
+        if (m_currentShotInterval > 0)
+            m_currentShotInterval -= Time.deltaTime;
+    }
 
     public void Equip()
     {
-        m_CurrentAmmo = m_MaxAmmo;
-        m_CurrentShotInterval = 0;
+        m_currentAmmo = m_maxAmmo;
+        m_currentShotInterval = 0;
     }
 
     /// <summary>
     /// Adds a certain amount of ammo to the gun, returning how many bullets are left in the clip
     /// </summary>
-    public virtual int Reload(float pAmmo)
+    public virtual void Reload(float pAmmo)
     {
-        m_CurrentAmmo = Mathf.RoundToInt(Mathf.Min(m_CurrentAmmo + pAmmo, m_MaxAmmo));
-        return Mathf.RoundToInt(Mathf.Max(0, -((m_CurrentAmmo + pAmmo) - m_MaxAmmo)));
+        m_currentAmmo = Mathf.RoundToInt(Mathf.Min(m_currentAmmo + pAmmo, m_maxAmmo));
     }
 
     protected abstract void Shoot();
-
-    protected void Update()
-    {
-        if (m_CurrentShotInterval > 0)
-            m_CurrentShotInterval -= Time.deltaTime;
-    }
 }

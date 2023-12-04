@@ -1,6 +1,6 @@
 using System;
-using UnityEngine;
 using Unity.Mathematics;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
@@ -45,11 +45,13 @@ public partial class FirstPersonController : MonoBehaviour
 
     private void Awake()
     {
-        // Caches essential components
         _playerCamera = GetComponentInChildren<Camera>();
         _characterController = GetComponent<CharacterController>();
         _input = FindObjectOfType<PlayerInput>();
         SetInputs();
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void Update()
@@ -61,17 +63,6 @@ public partial class FirstPersonController : MonoBehaviour
         HandleLookDirection();
 
         ApplyMovement();
-    }
-
-    /// <summary>
-    /// teleports the player to a position
-    /// </summary>
-    /// <param name="to"></param>
-    public void Teleport(Vector3 to)
-    {
-        _characterController.enabled = false;
-        transform.position = to;
-        _characterController.enabled = true;
     }
 
     /// <summary>

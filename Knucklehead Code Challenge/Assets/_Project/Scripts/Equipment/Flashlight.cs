@@ -1,18 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Flashlight : MonoBehaviour
+public class Flashlight : MonoBehaviour, IEquipableOnUse, IEquipable
 {
-    // Start is called before the first frame update
-    void Start()
+    private Light _light;
+
+    public void Equip()
     {
-        
+        _light = GetComponentInChildren<Light>();
+        _light.enabled = false;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void EquipableOnUse()
     {
-        
+        // Toggles light
+        _light.enabled = !_light.enabled;
     }
 }

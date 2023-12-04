@@ -18,7 +18,6 @@ public partial class EquipmentController : MonoBehaviour
     private IEquipableUse _useListener;
     private IEquipableOnUse _onUseListener;
 
-
     private PlayerInput _input;
 
     [SerializeField] private InputActionReference _inputUseAction;
@@ -69,7 +68,6 @@ public partial class EquipmentController : MonoBehaviour
     private void OnUse(InputAction.CallbackContext context)
     {
         _state = context.ReadValueAsButton() ? EUseState.OnUse : EUseState.OnIdle;
-
     }
 
     /// <summary>

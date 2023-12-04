@@ -1,18 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class AmmoClip : MonoBehaviour
+public class AmmoClip : MonoBehaviour, IEquipableOnUse, IUnequipable
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private int _ammoAmount;
+
+    public void Unequip()
     {
-        
+        Destroy(gameObject);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void EquipableOnUse()
     {
-        
+        if (_ammoAmount <= 0)
+            return;
+
+        AGun gun = FindObjectOfType<AGun>();
+        if (gun)
+        {
+            gun.Reload(_ammoAmount);
+            Unequip();
+        }
+    }
+
+    private void OnDestroy()
+    {
+        GetComponentInParent<EquipmentController>().UpdateListeners();
     }
 }

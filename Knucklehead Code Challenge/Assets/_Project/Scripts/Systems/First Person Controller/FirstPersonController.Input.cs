@@ -30,15 +30,12 @@ public partial class FirstPersonController //Input
     /// </summary>
     private void SetInputs()
     {
-        // Sets function for the movement
         _input.actions[_moveReference.action.name].performed += OnMove;
         _input.actions[_moveReference.action.name].canceled += OnMove;
 
-        // Sets function for the look direction
         _input.actions[_lookReference.action.name].performed += OnLook;
         _input.actions[_lookReference.action.name].canceled += OnLook;
 
-        // Sets function for the sprint action
         _input.actions[_sprintReference.action.name].performed += OnSprint;
         _input.actions[_sprintReference.action.name].canceled += OnSprint;
     }

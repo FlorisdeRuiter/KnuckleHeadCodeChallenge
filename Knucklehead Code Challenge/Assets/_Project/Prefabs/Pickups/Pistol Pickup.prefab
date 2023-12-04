@@ -67,8 +67,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7eca23c3714e1f24a897c0e9fb70db5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _equipedObject: {fileID: 6506341074380707496, guid: 25ea53fff211a7c4f9dd27374f43de53,
-    type: 3}
+  _prefab: {fileID: 6506341074380707496, guid: 25ea53fff211a7c4f9dd27374f43de53, type: 3}
 --- !u!1001 &2819846825970318697
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -150,7 +149,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: d1ca2f8b2a2a3984ca9d9860b039c8bd,
         type: 3}
       propertyPath: m_Name
-      value: Pistol 2
+      value: Model
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

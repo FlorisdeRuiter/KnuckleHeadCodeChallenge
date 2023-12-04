@@ -4,7 +4,7 @@ public class Rifle : AGunAutomatic
 {
     protected override void Shoot()
     {
-        GameObject bullet = Instantiate(m_bulletPrefab, m_firePoint.position, Quaternion.identity);
-        bullet.GetComponent<Bullet>().LaunchDirection(-transform.forward);
+        UnityEngine.GameObject bullet = m_bulletPrefabPool.GetPooledObject(m_firePoint.position, Quaternion.identity);
+        bullet.GetComponent<Bullet>().SetLaunchDirection(-transform.forward);
     }
 }
